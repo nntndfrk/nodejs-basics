@@ -61,6 +61,8 @@ function create(title, content, done) {
     load((error, notes) => {
         if (error) return done(error);
 
+        const note = notes.find(note => note.title === title);
+        if (note) return done(new Error('Заметка уже существует'));
         notes.push({ title, content });
 
         save(notes, done);
